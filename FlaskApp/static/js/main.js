@@ -1,7 +1,11 @@
 let aliveSecond = 0;
 let heartBeatRate = 1000;
 let pubnub;
-let appChannel = "johns-pi-channel";
+let appChannel = "sd3b-iot-channel";
+
+sendEvent('get_user_token');
+
+
 
 function time()
 {
@@ -113,9 +117,11 @@ function sendEvent(value)
             if(responseJson.hasOwnProperty('token'))
             {
                 pubnub.setToken(responseJson.token);
-                //pubnub.setCipherKey(responseJson.cipher_key);
+                pubnub.setCipherKey(responseJson.cipher_key);
                 pubnub.setUUID(responseJson.uuid);
                 subscribe();
             }
         });
 }
+
+
