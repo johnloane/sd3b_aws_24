@@ -12,7 +12,7 @@ pn_config.publish_key = config.get("PUBNUB_PUBLISH_KEY")
 pn_config.subscribe_key = config.get("PUBNUB_SUBSCRIBE_KEY")
 pn_config.uuid = config.get("GOOGLE_ADMIN_ID")
 pn_config.secret_key = config.get("PUBNUB_SECRET_KEY")
-pn_config.cipher_key = cipher_key
+#pn_config.cipher_key = cipher_key
 pubnub = PubNub(pn_config)
 
 

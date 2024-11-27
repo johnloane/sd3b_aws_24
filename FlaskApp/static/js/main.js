@@ -1,5 +1,5 @@
 let aliveSecond = 0;
-let heartBeatRate = 1000;
+let heartBeatRate = 10000;
 let pubnub;
 let appChannel = "sd3b-iot-channel";
 
@@ -52,9 +52,9 @@ function handleClick(cb)
 
 const setupPubNub = () => {
     pubnub = new PubNub({
-        publishKey: 'your_publish_key',
-        subscribeKey: 'your_subscribe_key',
-        userId: 'your_id',
+        publishKey: 'pub-c-6ce775ac-3b15-47e0-937b-e5bd7cf6c79d',
+        subscribeKey: 'sub-c-6eb23377-44fd-4c6e-b456-974c422b6cc7',
+        userId: 'john123',
     });
     //create a local channel
     const channel = pubnub.channel(appChannel);
@@ -117,11 +117,19 @@ function sendEvent(value)
             if(responseJson.hasOwnProperty('token'))
             {
                 pubnub.setToken(responseJson.token);
-                pubnub.setCipherKey(responseJson.cipher_key);
+                //pubnub.setCipherKey(responseJson.cipher_key);
                 pubnub.setUUID(responseJson.uuid);
                 subscribe();
             }
         });
+}
+
+function subscribe()
+{
+    console.log("Trying to subscribe with token");
+    const channel = pubnub.channel(appChannel)
+    const subscription = channel.subscription();
+    subscription.subscribe();
 }
 
 
