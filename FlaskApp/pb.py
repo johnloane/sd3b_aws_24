@@ -22,7 +22,7 @@ def grant_read_write_access(user_id):
     envelope = pubnub.grant_token() \
     .channels([Channel.id("sd3b-iot-channel").read().write()]) \
     .authorized_uuid(user_id) \
-    .ttl(5) \
+    .ttl(60) \
     .sync()
     return envelope.result.token
 

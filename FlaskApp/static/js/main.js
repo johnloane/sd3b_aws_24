@@ -2,7 +2,7 @@ let aliveSecond = 0;
 let heartBeatRate = 50000;
 let pubnub;
 let appChannel = "sd3b-iot-channel";
-let ttl = 5;
+let ttl = 60;
 
 //sendEvent('get_user_token');
 function refreshToken()
