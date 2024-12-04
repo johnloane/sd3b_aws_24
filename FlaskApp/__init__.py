@@ -127,6 +127,10 @@ def grant_access(user_id, read, write):
                 my_db.add_token(user_id, token)
                 access_response = {'token':token, 'cipher_key':pb.cipher_key, 'uuid':user_id}
                 return json.dumps(access_response)
+            elif read==True and write==True:
+                token = pb.grant_read_write_access(user_id)
+                my_db.add_token(user_id, token)
+                return token
             elif read=="true" and write=="false":
                 token = pb.grant_read_access(user_id)
                 my_db.add_token(user_id, token)
@@ -184,7 +188,7 @@ def get_user_token():
         token = get_or_refresh_token(token)
         token_response = {'token':token, 'cipher_key':pb.cipher_key, 'uuid':user_id}
     else:
-        s_response = {'token':123, 'cipher_key':"thiswillnotwork", 'uuid':user_id}
+        token_response = {'token':123, 'cipher_key':"thiswillnotwork", 'uuid':user_id}
     return json.dumps(token_response)
 
 

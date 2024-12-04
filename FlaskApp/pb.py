@@ -12,7 +12,8 @@ pn_config.publish_key = config.get("PUBNUB_PUBLISH_KEY")
 pn_config.subscribe_key = config.get("PUBNUB_SUBSCRIBE_KEY")
 pn_config.uuid = config.get("GOOGLE_ADMIN_ID")
 pn_config.secret_key = config.get("PUBNUB_SECRET_KEY")
-#pn_config.cipher_key = cipher_key
+pn_config.cipher_key = cipher_key
+#pn_config.crypto_module = AesCbcCryptoModule(pn_config)
 pubnub = PubNub(pn_config)
 
 
@@ -21,7 +22,7 @@ def grant_read_write_access(user_id):
     envelope = pubnub.grant_token() \
     .channels([Channel.id("sd3b-iot-channel").read().write()]) \
     .authorized_uuid(user_id) \
-    .ttl(60) \
+    .ttl(5) \
     .sync()
     return envelope.result.token
 

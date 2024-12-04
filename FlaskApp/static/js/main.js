@@ -1,10 +1,18 @@
 let aliveSecond = 0;
-let heartBeatRate = 10000;
+let heartBeatRate = 50000;
 let pubnub;
 let appChannel = "sd3b-iot-channel";
+let ttl = 5;
 
-sendEvent('get_user_token');
-
+//sendEvent('get_user_token');
+function refreshToken()
+{
+    console.log("Get user token request");
+    sendEvent('get_user_token');
+    let refresh_time = (ttl-1)*60*1000;
+    console.log(refresh_time);
+    setTimeout('refreshToken()', refresh_time);
+}
 
 
 function time()
@@ -55,6 +63,7 @@ const setupPubNub = () => {
         publishKey: 'pub-c-6ce775ac-3b15-47e0-937b-e5bd7cf6c79d',
         subscribeKey: 'sub-c-6eb23377-44fd-4c6e-b456-974c422b6cc7',
         userId: 'john123',
+	//cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({cipherKey: 'sd3b-secret'})
     });
     //create a local channel
     const channel = pubnub.channel(appChannel);
@@ -117,8 +126,8 @@ function sendEvent(value)
             if(responseJson.hasOwnProperty('token'))
             {
                 pubnub.setToken(responseJson.token);
-                //pubnub.setCipherKey(responseJson.cipher_key);
-                pubnub.setUUID(responseJson.uuid);
+                pubnub.setCipherKey(responseJson.cipher_key);
+		        pubnub.setUUID(responseJson.uuid);
                 subscribe();
             }
         });
