@@ -1,3 +1,5 @@
+from Cryptodome.Cipher import AES
+from pubnub.crypto import PubNubCryptoModule, AesCbcCryptoModule
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
 from pubnub.models.consumer.v3.channel import Channel
@@ -13,7 +15,9 @@ pn_config.subscribe_key = config.get("PUBNUB_SUBSCRIBE_KEY")
 pn_config.uuid = config.get("GOOGLE_ADMIN_ID")
 pn_config.secret_key = config.get("PUBNUB_SECRET_KEY")
 pn_config.cipher_key = cipher_key
-#pn_config.crypto_module = AesCbcCryptoModule(pn_config)
+pn_config.cipher_mode = AES.MODE_GCM
+pn_config.fallback_cipher_mode = AES.MODE_CBC
+pn_config.crypto_module = AesCbcCryptoModule(pn_config)
 pubnub = PubNub(pn_config)
 
 

@@ -62,6 +62,7 @@ const setupPubNub = () => {
     pubnub = new PubNub({
         publishKey: 'pub-c-6ce775ac-3b15-47e0-937b-e5bd7cf6c79d',
         subscribeKey: 'sub-c-6eb23377-44fd-4c6e-b456-974c422b6cc7',
+        cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({cipherKey:'sd3b_secret'}),
         userId: 'john123',
 	//cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({cipherKey: 'sd3b-secret'})
     });
@@ -126,7 +127,7 @@ function sendEvent(value)
             if(responseJson.hasOwnProperty('token'))
             {
                 pubnub.setToken(responseJson.token);
-                pubnub.setCipherKey(responseJson.cipher_key);
+                //pubnub.setCipherKey(responseJson.cipher_key);
 		        pubnub.setUUID(responseJson.uuid);
                 subscribe();
             }
